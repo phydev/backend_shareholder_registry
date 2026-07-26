@@ -1,0 +1,84 @@
+[project]
+name = "brreg"
+version = "0.1.0"
+description = "Aksjonærregisteret Backend"
+authors = [
+    {name = "Mauricio Moreira Soares"}
+]
+readme = "README.md"
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "django (>=6.0.6,<7.0.0)",
+    "faker (>=40.23.0,<41.0.0)",
+    "daphne (>=4.2.2,<5.0.0)",
+    "psycopg2-binary (>=2.9.12,<3.0.0)",
+    "python-dotenv (>=1.2.2,<2.0.0)",
+    "pyjwt (>=2.13.0,<3.0.0)",
+    "cryptography (>=48.0.1,<49.0.0)",
+    "djangorestframework (>=3.17.1,<4.0.0)",
+    "drf-spectacular (>=0.29.0,<0.30.0)",
+    "django-filter (>=25.2,<26.0)",
+    "testcontainers (>=4.14.2,<5.0.0)",
+    "aiohttp (>=3.14.1,<4.0.0)",
+    "jwcrypto (>=1.5.7,<2.0.0)",
+    "httpx (>=0.28.1,<0.29.0)",
+    "pyopenssl (>=26.2.0,<27.0.0)",
+    "django-silk>=5.5.0",
+]
+license = { text = "Proprietary" }
+keywords = [
+  "python",
+  "django",
+  "webapp"
+]
+
+
+[tool.poetry]
+package-mode = false
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^26.5.1"
+mypy = "^2.1.0"
+pyright = "^1.1.410"
+pytest-django = "^4.12.0"
+pytest-cov = "^7.1.0"
+ruff = "^0.15.16"
+ruff-lsp = "^0.0.62"
+types-requests = "^2.33.0.20260518"
+django-stubs = "^6.0.5"
+ipython = "^9.14.1"
+django-silk = "^5.5.0"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+exclude = ["migrations"]
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle: style errors (spacing, indentation, blank lines, etc.)
+  "F",   # Pyflakes: real errors like undefined/unused names and imports
+  "I",   # isort: import sorting and grouping
+  "UP",  # pyupgrade: modernize syntax for your target Python version
+  "B",   # flake8-bugbear: likely bugs and bad patterns
+  "ANN", # flake8-annotations: type annotation checks
+]
+ignore = ["ARG002"] # Allow unused parameters in handlers (e.g. `request` in views)
+
+[tool.ruff.lint.isort]
+known-first-party = ["brreg"]
+combine-as-imports = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["tests.py", "test_*.py", "*_test.py"]
+addopts = "--reuse-db --nomigrations --no-header -rfsx --cov=brreg --cov-report=term-missing --cov-report=html"
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["src/brreg/tests/*", "src/brreg/migrations/*"]
