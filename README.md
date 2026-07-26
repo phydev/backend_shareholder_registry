@@ -1,2 +1,3 @@
-# backend_shareholder_registry
+# Backend shareholder registry
 Django backend for the Norwegian Shareholder Registry (Aksjonærregisteret).
+
